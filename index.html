@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#111111">
+<meta name="apple-mobile-web-app-title" content="Today 2.0">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Today 2.0</title>
+
+
+<link rel="stylesheet" href="design.css">
+</head>
+<body><div class="brand wrap"><span>today<span class="accent">.</span></span><button id="themeToggle" type="button">Dark mode</button></div>
+<header><div class="wrap">
+  <div class="top">
+    <button class="arrow" id="prev" aria-label="Previous day">‹</button>
+    <div class="dt" id="tod" title="Back to today"><p class="kick" id="kick">Today</p><h1 id="date">…</h1></div>
+    <button class="arrow" id="next" aria-label="Next day">›</button>
+  </div>
+  <div class="count"><span><b id="dApr">–</b> days to manuscript</span><span><b id="dJul">–</b> days to Canada</span></div>
+  <div class="bar" aria-hidden="true"><i id="prog" style="width:0"></i></div>
+</div></header>
+
+<main class="wrap">
+<section id="vToday">
+  <div class="row1"><span class="ring" id="score"></span><button class="pill" id="tired" aria-pressed="false">Tired day</button></div>
+  <p class="note" id="before" hidden>Your launch is November 29. Prepare gently before then.</p>
+  <p class="note" id="tiredNote" hidden>Tired day: only the essentials count. Doing them is a full win.</p>
+  <div class="card" id="strategy"></div><div class="card" id="essCard"><h2>Essentials</h2><p class="sub">Do these first. Swipe left or right to change day.</p><ul id="ess"></ul></div>
+  <h2 class="sec" id="areasTitle">Your six areas</h2><p class="sub" id="areasSub">One small step in each, if you have energy. Tap an area to open it.</p>
+  <div id="areas"></div>
+  <form class="add" id="addForm"><input type="text" id="addIn" placeholder="Add one thing for this day" aria-label="Add a task"><button type="submit">Add</button></form>
+  <div class="card" id="reviewSec" hidden><h2>Sunday check · 20 min</h2>
+    <div class="review">
+      <label>Thesis this week<select id="rThesis"><option value="">Choose…</option><option>On track</option><option>A bit behind</option><option>Behind</option></select></label>
+      <div class="two"><label>Move fund total (€)<input type="number" id="rFund" inputmode="decimal" min="0" step="10"></label><label>RBC card balance (€)<input type="number" id="rCard" inputmode="decimal" min="0" step="10"></label></div>
+      <div><label id="eLab">Energy this week (1–5)</label><div class="energy" id="energy" role="group" aria-labelledby="eLab"></div></div>
+      <label>One good thing this week<input type="text" id="rWin"></label>
+      <button class="save" id="rSave">Save my Sunday check</button><p class="note" id="rMsg"></p>
+    </div></div>
+  <div class="card"><h2>This week</h2><div class="week" id="week"></div></div>
+  <div class="card"><h2>Ideas for later</h2><p class="sub">Capture ideas here. Validate only one offer at a time.</p><textarea id="ideas" rows="3" placeholder="Business ideas, projects, apps…"></textarea><div style="height:10px"></div></div>
+</section>
+
+<section id="vMs" hidden>
+  <p class="big" id="msHead"></p><div id="strategicMilestones"></div><details><summary>Original six-area checklist (legacy)</summary>
+  <div id="msList"></div></details>
+</section>
+
+<section id="vProg" hidden>
+  <p class="big" id="pHead"></p>
+  <div class="card" id="outcomes"></div><details><summary>Original activity statistics</summary><div class="card" id="pMoney"></div>
+  <div id="pAreas"></div></details>
+  <div class="card"><h2>Week by week</h2><p class="sub">Share of planned tasks done each week</p><div id="pWeeks" class="wk"></div></div>
+  <div class="card"><h2>Energy</h2><p class="sub">From your Sunday checks (1–5)</p><div id="pEnergy" class="wk"></div></div>
+</section>
+<div class="card" id="backup" hidden><h2>Backup</h2><p class="sub">Your data lives on this phone. Save a backup every Sunday.</p><div class="two" style="padding-bottom:12px"><button id="bExport">Save backup</button><label class="pillbtn"><input type="file" id="bImport" accept="application/json,.json" hidden>Restore</label></div><p class="note" id="bMsg"></p></div>
+<section id="vDash" hidden><div id="dashboard"></div></section><section id="vVision" hidden><div class="card" id="vision"></div></section><p class="status" id="status">Saved on this phone · works offline</p>
+</main>
+
+<nav class="tabs wrap" role="tablist" aria-label="Views">
+  <button role="tab" id="tToday" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Today</button>
+  <button role="tab" id="tMs" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg>Milestones</button>
+  <button role="tab" id="tProg" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Progress</button>
+<button role="tab" id="tDash" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</button><button role="tab" id="tVision" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>Vision</button></nav>
+<script src="dates.js"></script>
+<script src="routines.js"></script>
+<script src="storage.js"></script>
+<script src="strategy.js"></script>
+<script src="dashboard.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
